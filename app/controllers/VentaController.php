@@ -83,5 +83,21 @@
             $response->getBody()->write($payload);
             return $response->withHeader('Content-Type', 'application/json');
         }
+        public function TraerAlemanas($request, $response, $args)
+        {
+            // $lista = Venta::obtenerTodos();
+
+            // $listaFiltrada=array_filter($lista,function($elemento){
+            //     $criptomoneda=Criptomoneda::obtenerUno($elemento->id_Cripto);
+            //     return strtolower($criptomoneda->nacionalidad)=="alemania" &&
+            //      strtotime($elemento->fecha)>strtotime("2023-06-10") &&
+            //      strtotime($elemento->fecha)<strtotime("2023-06-13");
+            // });
+            $lista=Venta::obtenerAlemanas();
+            
+            $payload = json_encode(array("ListaVentas" => $lista));
+            $response->getBody()->write($payload);
+            return $response->withHeader('Content-Type', 'application/json');
+        }
     }
 ?>

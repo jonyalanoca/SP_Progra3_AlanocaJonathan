@@ -58,6 +58,18 @@
             $consulta->execute();
             return $consulta->fetchObject('Usuario');
         }
+        public static function ObtenerUsuariosCompraCripto($cripto){
+            $objAccesoDatos = AccesoDatos::obtenerInstancia();
+            $consulta = $objAccesoDatos->prepararConsulta("SELECT usuarios.idUsuario, usuarios.nombre, usuarios.tipo, usuarios.email, usuarios.clave
+            FROM ventas
+            INNER JOIN criptomonedas ON ventas.id_Cripto = criptomonedas.idCripto
+            INNER JOIN usuarios on ventas.id_Usuario=usuarios.idUsuario
+            WHERE criptomonedas.nombre=:cripto");
+            $consulta->bindValue(':cripto', $cripto, PDO::PARAM_STR);
+            $consulta->execute();
+            return $consulta->fetchAll(PDO::FETCH_CLASS, 'Usuario');
+        }
+
     }
     
 

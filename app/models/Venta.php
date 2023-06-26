@@ -50,7 +50,12 @@
             $consulta->bindValue(':id', $id, PDO::PARAM_INT);
             $consulta->execute();
         }
-
+        public static function obtenerAlemanas(){
+            $objAccesoDatos = AccesoDatos::obtenerInstancia();
+            $consulta = $objAccesoDatos->prepararConsulta("select ventas.idVenta, ventas.id_Cripto, ventas.id_Usuario,ventas.fecha,ventas.cantidad, ventas.imagen from ventas INNER JOIN criptomonedas ON ventas.id_Cripto=criptomonedas.idCripto WHERE criptomonedas.nacionalidad='alemania' and ventas.fecha>'2023-06-10' and ventas.fecha<'2023-06-13'");
+            $consulta->execute();
+            return $consulta->fetchAll(PDO::FETCH_CLASS, 'Venta');
+        }
     }
     
 

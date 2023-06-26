@@ -75,5 +75,15 @@
             $response->getBody()->write($payload);
             return $response->withHeader('Content-Type', 'application/json');
         }
+
+        public function TraerTodosCompraCripto($request, $response, $args)
+        {
+            $cripto = $args['cripto'];
+            $lista=Usuario::ObtenerUsuariosCompraCripto($cripto);
+
+            $payload = json_encode(array("ListaUsuarios" => $lista));
+            $response->getBody()->write($payload);
+            return $response->withHeader('Content-Type', 'application/json');
+        }
     }
 ?>

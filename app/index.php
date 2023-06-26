@@ -55,8 +55,10 @@ $app->group('/usuarios', function (RouteCollectorProxy $group) {
   $group->post('/', \UsuarioController::class . ':CargarUno')->add(\Verificadora::class . ':VerificarParamUsuario');
   $group->get('/{id}', \UsuarioController::class . ':TraerUno');
   $group->get('[/]', \UsuarioController::class . ':TraerTodos');
+  $group->get('/compra/{cripto}', \UsuarioController::class . ':TraerTodosCompraCripto');
   $group->put('/{id}', \UsuarioController::class . ':ModificarUno')->add(\Verificadora::class . ':VerificarParamUsuario');
   $group->delete('/{id}', \UsuarioController::class . ':BorrarUno');
+
 });
 // ->add(\AutentificadoraLogin::class . ':VerificarAdmin')
 //   ->add(\AutentificadoraLogin::class . ':VerificarLogeo');
@@ -66,7 +68,11 @@ $app->group('/ventas', function (RouteCollectorProxy $group) {
     ->add(\AutentificadoraLogin::class . ':VerificarAdminCliente')->add(\AutentificadoraLogin::class . ':VerificarLogeo')
     ->add(\Verificadora::class . ':VerificarParamVenta');
   $group->get('/{id}', \VentaController::class . ':TraerUno');
+  $group->get('/alemanas/', \VentaController::class . ':TraerAlemanas')
+    ->add(\AutentificadoraLogin::class . ':VerificarAdmin')->add(\AutentificadoraLogin::class . ':VerificarLogeo');
   $group->get('[/]', \VentaController::class . ':TraerTodos');
+  
+
   $group->put('/{id}', \VentaController::class . ':ModificarUno');
   $group->delete('/{id}', \VentaController::class . ':BorrarUno');
 })->add(\AutentificadoraLogin::class . ':VerificarLogeo');
